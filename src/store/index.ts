@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { tmdbApi } from "./slices/apiSlice";
+import { movieApi } from "./slices/apiSlice";
 import discoverReducer from "./slices/discover";
 
 const store = configureStore({
   reducer: {
     discover: discoverReducer,
-    [tmdbApi.reducerPath]: tmdbApi.reducer,
+    [movieApi.reducerPath]: movieApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(tmdbApi.middleware),
+    getDefaultMiddleware().concat(movieApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

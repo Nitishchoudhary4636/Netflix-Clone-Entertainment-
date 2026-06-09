@@ -40,7 +40,7 @@ export function Component() {
         }}
       >
         <Typography color="grey.300">
-          Unable to load movies. Check your API key and try again.
+          Unable to load movies. Please try again.
         </Typography>
         <Button variant="contained" onClick={() => refetch()}>
           Retry

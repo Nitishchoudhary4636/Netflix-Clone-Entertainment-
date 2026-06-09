@@ -3,9 +3,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-ARG VITE_APP_TMDB_V3_API_KEY
-ENV VITE_APP_TMDB_V3_API_KEY=${VITE_APP_TMDB_V3_API_KEY}
-ENV VITE_APP_API_ENDPOINT_URL=https://api.themoviedb.org/3
 RUN npm run build
 
 FROM nginx:stable-alpine

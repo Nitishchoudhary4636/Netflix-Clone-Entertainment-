@@ -1,8 +1,7 @@
-import { API_ENDPOINT_URL } from "src/constant";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const tmdbApi = createApi({
-  reducerPath: "tmdbApi",
-  baseQuery: fetchBaseQuery({ baseUrl: API_ENDPOINT_URL }),
-  endpoints: (build) => ({}),
+export const movieApi = createApi({
+  reducerPath: "movieApi",
+  baseQuery: fakeBaseQuery(),
+  endpoints: () => ({}),
 });

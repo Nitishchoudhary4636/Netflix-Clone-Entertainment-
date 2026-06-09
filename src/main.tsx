@@ -12,28 +12,22 @@ import { extendedApi } from "./store/slices/configuration";
 import palette from "./theme/palette";
 import router from "./routes";
 import MainLoadingScreen from "./components/MainLoadingScreen";
-import ConfigErrorScreen from "./components/ConfigErrorScreen";
-import { isEnvConfigured } from "./lib/env";
+
+store.dispatch(extendedApi.endpoints.getConfiguration.initiate());
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-if (!isEnvConfigured()) {
-  root.render(<ConfigErrorScreen />);
-} else {
-  store.dispatch(extendedApi.endpoints.getConfiguration.initiate(undefined));
-
-  root.render(
-    <Provider store={store}>
-      <React.StrictMode>
-        <ThemeProvider theme={createTheme({ palette })}>
-          <RouterProvider
-            router={router}
-            fallbackElement={<MainLoadingScreen />}
-          />
-        </ThemeProvider>
-      </React.StrictMode>
-    </Provider>
-  );
-}
+root.render(
+  <Provider store={store}>
+    <React.StrictMode>
+      <ThemeProvider theme={createTheme({ palette })}>
+        <RouterProvider
+          router={router}
+          fallbackElement={<MainLoadingScreen />}
+        />
+      </ThemeProvider>
+    </React.StrictMode>
+  </Provider>
+);

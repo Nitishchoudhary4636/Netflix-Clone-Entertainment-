@@ -1,26 +1,10 @@
-import { TMDB_V3_API_KEY } from "src/constant";
-import { tmdbApi } from "./apiSlice";
+import { movieApi } from "./apiSlice";
+import { getLocalConfiguration } from "src/lib/localMovieService";
 
-type ConfigurationType = {
-  images: {
-    base_url: string;
-    secure_base_url: string;
-    backdrop_sizes: string[];
-    logo_sizes: string[];
-    poster_sizes: string[];
-    profile_sizes: string[];
-    still_sizes: string[];
-  };
-  change_keys: string[];
-};
-
-export const extendedApi = tmdbApi.injectEndpoints({
+export const extendedApi = movieApi.injectEndpoints({
   endpoints: (build) => ({
-    getConfiguration: build.query<ConfigurationType, undefined>({
-      query: () => ({
-        url: "/configuration",
-        params: { api_key: TMDB_V3_API_KEY },
-      }),
+    getConfiguration: build.query<ReturnType<typeof getLocalConfiguration>, void>({
+      queryFn: async () => ({ data: getLocalConfiguration() }),
     }),
   }),
 });

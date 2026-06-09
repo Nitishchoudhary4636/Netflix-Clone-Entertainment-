@@ -18,6 +18,7 @@ import AgeLimitChip from "./AgeLimitChip";
 import QualityChip from "./QualityChip";
 import GenreBreadcrumbs from "./GenreBreadcrumbs";
 import { useGetConfigurationQuery } from "src/store/slices/configuration";
+import { resolveImageUrl } from "src/utils/images";
 import { MEDIA_TYPE } from "src/types/Common";
 import { useGetGenresQuery } from "src/store/slices/genre";
 import { MAIN_PATH } from "src/constant";
@@ -33,7 +34,7 @@ export default function VideoCardModal({
 }: VideoCardModalProps) {
   const navigate = useNavigate();
 
-  const { data: configuration } = useGetConfigurationQuery(undefined);
+  const { data: configuration } = useGetConfigurationQuery();
   const { data: genres } = useGetGenresQuery(MEDIA_TYPE.Movie);
   const setPortal = usePortal();
   const rect = anchorElement.getBoundingClientRect();
@@ -57,7 +58,11 @@ export default function VideoCardModal({
         }}
       >
         <img
-          src={`${configuration?.images.base_url}w780${video.backdrop_path}`}
+          src={resolveImageUrl(
+            video.backdrop_path,
+            configuration?.images.base_url,
+            "w780"
+          )}
           style={{
             top: 0,
             height: "100%",

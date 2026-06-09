@@ -1,19 +1,8 @@
 # Entertainment Library
 
-A movie browsing app built with React, TypeScript, MUI, and the TMDB API.
+A movie browsing app built with React, TypeScript, and MUI. Movie data is bundled locally — no API key required.
 
 ## Setup
-
-1. Create a free account on [TMDB](https://www.themoviedb.org/).
-2. Create an API key at [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api).
-3. Copy `.env.example` to `.env` and set your key:
-
-```sh
-VITE_APP_API_ENDPOINT_URL=https://api.themoviedb.org/3
-VITE_APP_TMDB_V3_API_KEY=your_api_key_here
-```
-
-4. Install and run:
 
 ```sh
 npm install
@@ -27,18 +16,23 @@ npm run build
 npm run preview
 ```
 
-Deploy the `dist` folder to Vercel, Netlify, or any static host. Set the same `VITE_APP_*` variables in your hosting provider before building.
+Deploy the `dist` folder to Vercel, Netlify, or any static host.
 
 ## Docker
 
 ```sh
-docker build --build-arg VITE_APP_TMDB_V3_API_KEY=your_api_key_here -t entertainment-library .
+docker build -t entertainment-library .
 docker run --name entertainment-library --rm -d -p 80:80 entertainment-library
 ```
 
 ## Features
 
-- Movie browse, genre explore, detail modal, and video player
-- RTK Query for TMDB API data
+- 20 curated movies with trailers, genres, and browse grids
+- Detail modal with YouTube trailers and similar titles
+- Video player page with custom controls
 - Lazy-loaded routes and infinite scroll grids
 - Responsive layout with MUI and framer-motion carousels
+
+## Data
+
+Movies live in `src/data/movies.ts`. To add more titles, extend that file and update `src/data/genres.ts` if needed.

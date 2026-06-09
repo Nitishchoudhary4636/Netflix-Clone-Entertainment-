@@ -9,13 +9,14 @@ import MaxLineTypography from "./MaxLineTypography";
 import { formatMinuteToReadable, getRandomNumber } from "src/utils/common";
 import AgeLimitChip from "./AgeLimitChip";
 import { useGetConfigurationQuery } from "src/store/slices/configuration";
+import { resolveImageUrl } from "src/utils/images";
 
 interface SimilarVideoCardProps {
   video: Movie;
 }
 
 export default function SimilarVideoCard({ video }: SimilarVideoCardProps) {
-  const { data: configuration } = useGetConfigurationQuery(undefined);
+  const { data: configuration } = useGetConfigurationQuery();
 
   return (
     <Card>
@@ -27,7 +28,11 @@ export default function SimilarVideoCard({ video }: SimilarVideoCardProps) {
         }}
       >
         <img
-          src={`${configuration?.images.base_url}w780${video.backdrop_path}`}
+          src={resolveImageUrl(
+            video.backdrop_path,
+            configuration?.images.base_url,
+            "w780"
+          )}
           style={{
             top: 0,
             height: "100%",

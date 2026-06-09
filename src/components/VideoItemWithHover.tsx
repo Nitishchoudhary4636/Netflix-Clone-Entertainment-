@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Movie } from "src/types/Movie";
 import { usePortal } from "src/providers/PortalProvider";
 import { useGetConfigurationQuery } from "src/store/slices/configuration";
+import { resolveImageUrl } from "src/utils/images";
 import VideoItemWithHoverPure from "./VideoItemWithHoverPure";
 interface VideoItemWithHoverProps {
   video: Movie;
@@ -12,7 +13,7 @@ export default function VideoItemWithHover({ video }: VideoItemWithHoverProps) {
   const elementRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const { data: configuration } = useGetConfigurationQuery(undefined);
+  const { data: configuration } = useGetConfigurationQuery();
 
   useEffect(() => {
     if (isHovered) {
@@ -24,7 +25,11 @@ export default function VideoItemWithHover({ video }: VideoItemWithHoverProps) {
     <VideoItemWithHoverPure
       ref={elementRef}
       handleHover={setIsHovered}
-      src={`${configuration?.images.base_url}w300${video.backdrop_path}`}
+      src={resolveImageUrl(
+        video.backdrop_path,
+        configuration?.images.base_url,
+        "w300"
+      )}
     />
   );
 }

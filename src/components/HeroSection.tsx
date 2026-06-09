@@ -11,6 +11,7 @@ import { MEDIA_TYPE } from "src/types/Common";
 import { useGetVideosByMediaTypeAndCustomGenreQuery } from "src/store/slices/discover";
 import { useGetConfigurationQuery } from "src/store/slices/configuration";
 import { Movie } from "src/types/Movie";
+import { resolveImageUrl } from "src/utils/images";
 
 interface TopTrailerProps {
   mediaType: MEDIA_TYPE;
@@ -22,7 +23,7 @@ export default function TopTrailer({ mediaType }: TopTrailerProps) {
     apiString: "popular",
     page: 1,
   });
-  const { data: configuration } = useGetConfigurationQuery(undefined);
+  const { data: configuration } = useGetConfigurationQuery();
   const { setDetailType } = useDetailModal();
 
   const slides = useMemo<Movie[]>(() => {
@@ -80,8 +81,12 @@ export default function TopTrailer({ mediaType }: TopTrailerProps) {
                 height: { xs: 430, sm: 500, md: "56.25vw" },
                 maxHeight: { md: 760 },
                 minHeight: 360,
-                backgroundImage: configuration?.images.base_url
-                  ? `url(${configuration.images.base_url}original${video.backdrop_path})`
+                backgroundImage: video.backdrop_path
+                  ? `url(${resolveImageUrl(
+                      video.backdrop_path,
+                      configuration?.images.base_url,
+                      "original"
+                    )})`
                   : "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center center",
