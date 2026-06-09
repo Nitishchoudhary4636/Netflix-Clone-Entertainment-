@@ -1,0 +1,15 @@
+{
+  "short_name": "Entertain",
+  "name": "Entertainment Library",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/browse",
+  "display": "standalone",
+  "theme_color": "#141414",
+  "background_color": "#141414"
+}
